@@ -299,12 +299,12 @@ const UploadModal = ({ onClose, addCallFailureData, setApiCalled, setFormData, s
           <div className="flex justify-end gap-2 pt-1">
             <button
               onClick={onClose}
-              className="px-2.5 py-1 border border-gray-300 rounded text-xs hover:bg-gray-100 transition"
+              className="px-2.5 hover:cursor-pointer py-1 border border-gray-300 rounded text-xs hover:bg-gray-100 transition"
             >
               Cancel
             </button>
             <button
-              className="px-2.5 py-1 bg-blue-800 text-white rounded text-xs hover:bg-blue-900 transition"
+              className="px-2.5 py-1 bg-blue-800 text-white rounded text-xs hover:cursor-pointer hover:bg-blue-900 transition"
               onClick={handleUpload}
             >
               Upload

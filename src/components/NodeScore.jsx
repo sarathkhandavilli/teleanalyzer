@@ -122,7 +122,7 @@ const NodeScore = ({ testCaseId, onClose, onBackToDetails }) => {
         {/* Header */}
         <div className="flex justify-between items-center border-b pb-2 mb-4">
           <h1 className="text-xl font-semibold text-blue-800">Visual</h1>
-          <button onClick={onClose} className="text-gray-500 text-2xl hover:text-red-600">
+          <button onClick={onClose} className="text-gray-500 hover:cursor-pointer  text-2xl hover:text-red-600">
             &times;
           </button>
         </div>
@@ -144,7 +144,7 @@ const NodeScore = ({ testCaseId, onClose, onBackToDetails }) => {
           <div className="flex justify-end mt-4">
             <button
               onClick={onBackToDetails}
-              className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+              className="px-4 py-2 bg-blue-600 hover:cursor-pointer  text-white rounded-md hover:bg-blue-700"
             >
               Back to Details
             </button>

@@ -64,7 +64,7 @@ const DetailedReport = ({ testCaseId, onClose, onOpenNodeScore, onOpenProtocolMi
           <h1 className="text-xl font-semibold text-blue-800">
             Detailed Error Report - {reportData.testcase_id}
           </h1>
-          <button onClick={onClose} className="text-gray-500 text-2xl hover:text-red-600">
+          <button onClick={onClose} className=" hover:cursor-pointer text-gray-500 text-2xl hover:text-red-600">
             &times;
           </button>
         </div>
@@ -148,13 +148,13 @@ const DetailedReport = ({ testCaseId, onClose, onOpenNodeScore, onOpenProtocolMi
         <div className="flex justify-end gap-2 mt-4">
           <button
             onClick={onOpenNodeScore}
-            className="px-3 py-1 bg-blue-700 hover:bg-blue-800 text-white rounded-md text-sm"
+            className="px-3 py-1 bg-blue-700 hover:cursor-pointer  hover:bg-blue-800 text-white rounded-md text-sm"
           >
             Node Score
           </button>
           <button 
             onClick={onOpenProtocolMix}
-            className="px-3 py-1 bg-green-700 hover:bg-green-800 text-white rounded-md text-sm"
+            className="px-3 py-1 bg-green-700 hover:cursor-pointer  hover:bg-green-800 text-white rounded-md text-sm"
           >
             Protocol Mix
           </button>

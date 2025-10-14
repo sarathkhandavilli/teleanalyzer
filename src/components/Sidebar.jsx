@@ -23,7 +23,7 @@ const Sidebar = ({ setItem, selectedItem }) => {
       {/* Toggle Button */}
       <button
         onClick={toggleSideMenu}
-        className="absolute top-6 -right-3 z-10 bg-white p-1 rounded-full hover:bg-gray-200 transition-all duration-300 shadow-md"
+        className="absolute top-6 -right-3 z-10 hover:cursor-pointer bg-white p-1 rounded-full hover:bg-gray-200 transition-all duration-300 shadow-md"
       >
         {isOpen ? (
           <img src={LeftArrow} className="w-3 h-3 " alt="Collapse" />
