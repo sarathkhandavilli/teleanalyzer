@@ -459,7 +459,12 @@ const CallFailureDetection = ({
               currentPage === 1 ? "text-gray-400 border-gray-300 cursor-not-allowed" : "text-blue-800 border-blue-600 hover:bg-blue-100 cursor-pointer"
             }`}
             disabled={currentPage === 1}
-            onClick={() => currentPage > 1 && setCurrentPage(currentPage - 1)}
+            onClick={() => {
+              if (currentPage > 1) {
+                setCurrentPage(currentPage - 1);
+                setExpandedIndex(null);
+              }
+            }}
           >
             <img src={LeftArrow} alt="previousButton" className="w-3" />
           </button>
@@ -471,7 +476,7 @@ const CallFailureDetection = ({
               <React.Fragment key={page}>
                 {idx > 0 && arr[idx - 1] !== page - 1 && <span>...</span>}
                 <button
-                  onClick={() => setCurrentPage(page)}
+                  onClick={() => { setCurrentPage(page); setExpandedIndex(null); }}
                   className={`px-3 py-1 rounded-md border transition cursor-pointer ${
                     currentPage === page ? "bg-blue-800 text-white border-blue-800" : "bg-white text-gray-800 hover:bg-blue-100 border-gray-400"
                   }`}
@@ -487,7 +492,12 @@ const CallFailureDetection = ({
               currentPage === totalPages() ? "text-gray-400 border-gray-300 cursor-not-allowed" : "text-blue-800 border-blue-600 hover:bg-blue-100 cursor-pointer"
             }`}
             disabled={currentPage === totalPages()}
-            onClick={() => currentPage < totalPages() && setCurrentPage(currentPage + 1)}
+            onClick={() => {
+              if (currentPage < totalPages()) {
+                setCurrentPage(currentPage + 1);
+                setExpandedIndex(null);
+              }
+            }}
           >
             <img src={RightArrow} alt="nextButton" className="w-3" />
           </button>

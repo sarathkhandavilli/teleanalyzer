@@ -118,6 +118,7 @@ const UploadModal = ({ onClose, addCallFailureData, setApiCalled, setFormData, s
   return (
     <div className="fixed inset-0 z-50 bg-gray-800/40 flex justify-center items-center p-2">
       <div className="bg-white rounded-md shadow-lg w-[45%] max-w-2xl text-gray-800">
+
         {/* Header */}
         <div className="flex items-center justify-between bg-blue-800 text-white px-3 py-1.5 rounded-t-md">
           <div className="flex items-center gap-2">

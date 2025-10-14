@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import api from "../api.jsx";
-import CloseIcon from "../assets/close.png";
+import ModalHeader from "./ModalHeader.jsx";
 
 const Progress = ({ value }) => (
   <div className="w-full bg-gray-200 rounded-full h-2 overflow-hidden">
@@ -57,17 +57,11 @@ const DetailedReport = ({ testCaseId, onClose, onOpenNodeScore, onOpenProtocolMi
   const maxScore = 2.0;
 
   return (
-    <div className="fixed inset-0 z-50 bg-gray-900/60 flex justify-center items-center p-2 ">
-      <div className="bg-white rounded-xl shadow-lg w-[60%] max-w-3xl max-h-[80vh] overflow-y-auto p-4 relative">
+    <div className="modalOuterDiv">
+      <div className="modalInnerDiv">
+        
         {/* Header */}
-        <div className="flex justify-between items-center border-b pb-2 mb-4">
-          <h1 className="text-xl font-semibold text-blue-800">
-            Detailed Error Report - {reportData.testcase_id}
-          </h1>
-          <button onClick={onClose} className=" hover:cursor-pointer text-gray-500 text-2xl hover:text-red-600">
-            &times;
-          </button>
-        </div>
+        <ModalHeader heading={`Detailed Error Report - ${reportData.testcase_id}`} onClose={onClose} />
 
         {/* Summary Info */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-4 text-sm">

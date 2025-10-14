@@ -10,6 +10,7 @@ import {
   LinearScale,
   Title,
 } from "chart.js";
+import ModalHeader from "./ModalHeader.jsx";
 
 ChartJS.register(BarElement, Tooltip, Legend, CategoryScale, LinearScale, Title);
 
@@ -159,15 +160,10 @@ const ProtocolMix = ({ testCaseId, onClose, onBackToDetails }) => {
   }
 
   return (
-    <div className="fixed inset-0 z-50 bg-gray-900/60 flex justify-center items-center p-2 ">
-      <div className="bg-white rounded-xl shadow-lg w-[60%] max-w-3xl max-h-[80vh] overflow-y-auto p-4 relative">
+    <div className="modalOuterDiv">
+      <div className="modalInnerDiv">
         {/* Header */}
-        <div className="flex justify-between items-center border-b pb-2 mb-4">
-          <h1 className="text-xl font-semibold text-blue-800">Visual</h1>
-          <button onClick={onClose} className="hover:cursor-pointer text-gray-500 text-2xl hover:text-red-600">
-            &times;
-          </button>
-        </div>
+        <ModalHeader heading="Visual" onClose={onClose} />
 
         <div className="mb-4">
           <h2 className="text-lg font-semibold text-gray-800">

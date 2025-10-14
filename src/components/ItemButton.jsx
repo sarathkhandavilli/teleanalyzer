@@ -9,7 +9,7 @@ const ItemButton = ({ itemKey, itemName, imageName, isSideMenuOpen, isSelected, 
         hover:shadow-sm
         ${isSelected ? 'bg-gray-50/20' : 'hover:bg-gray-50/8'}
         whitespace-nowrap
-      `}
+      `} 
       title={!isSideMenuOpen ? itemName : ""}
       onClick={() => setItem(itemKey)}
     >
