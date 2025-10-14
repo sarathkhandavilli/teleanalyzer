@@ -140,10 +140,11 @@ const Dashboard = ({ allData }) => {
 
   return (
     <div className="p-6 bg-gray-50 min-h-screen">
-      <h1 className="text-3xl font-semibold text-blue-800 mb-6">Dashboard</h1>
+      <h1 className="text-3xl text-blue-800 mb-6">DASHBOARD</h1>
 
       {/* Summary Cards */}
       <div className="grid grid-cols-4 gap-4 mb-8">
+        
         <div className="bg-blue-100 border-l-4 border-blue-500 rounded-md p-4">
           <p className="text-sm text-gray-500">Total number of PCAPs</p>
           <h2 className="text-3xl font-bold text-blue-700">{totalPcaps}</h2>
