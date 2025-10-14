@@ -152,7 +152,7 @@ const UploadModal = ({ onClose, addCallFailureData, setApiCalled, setFormData, s
                 <p className="text-sm font-medium">Drag & drop your PCAP file</p>
                 <p className="text-xs text-gray-500">or click to browse</p>
                 <div className="mt-1 inline-block bg-blue-800 text-white text-[10px] px-2 py-[4px] rounded">
-                  .pacap or .pcapng
+                  .pcap or .pcapng
                 </div>
               </div>
 
