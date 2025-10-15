@@ -48,11 +48,11 @@ const UploadModal = ({ onClose, addCallFailureData, setApiCalled, setFormData, s
 
     try {
 
-      console.log("time zone = ",form.timeZone);
-      console.log("start date = ",formatDateToString(form.start_time));
-      console.log("end date = "+formatDateToString(form.end_time));
-      console.log("msisdn = ",form.msisdn);
-      console.log("imsi = ",form.imsi);
+      // console.log("time zone = ",form.timezone);
+      // console.log("start date = ",formatDateToString(form.start_time));
+      // console.log("end date = "+formatDateToString(form.end_time));
+      // console.log("msisdn = ",form.msisdn);
+      // console.log("imsi = ",form.imsi);
 
        // Validation for required fields
     if (!form.testCaseId) {
