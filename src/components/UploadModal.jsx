@@ -3,6 +3,9 @@ import CloudUpload from "../assets/cloudupload.png";
 import UploadImage from "../assets/uploadwhite.png";
 import { toast } from "react-toastify";
 import api from "../api";
+import AsyncSelect from "react-select/async";
+import { callback, color } from "chart.js/helpers";
+import Select from "react-select";
 
 const UploadModal = ({ onClose, addCallFailureData, setApiCalled, setFormData, setTestCaseId }) => {
   const [file, setFile] = useState(null);
@@ -18,7 +21,7 @@ const UploadModal = ({ onClose, addCallFailureData, setApiCalled, setFormData, s
     file: null,
     uploaded_by: "",
     comments: "",
-    timeZone: selectedZone,
+    timezone: selectedZone,
     start_time: "",
     end_time: "",
     msisdn: "",
@@ -45,11 +48,11 @@ const UploadModal = ({ onClose, addCallFailureData, setApiCalled, setFormData, s
 
     try {
 
-      //console.log("time zone = ",form.timeZone);
-      //console.log("start date = ",formatDateToString(form.start_time));
-      //console.log("end date = "+formatDateToString(form.end_time));
-      //console.log("msisdn = ",form.msisdn);
-      //console.log("imsi = ",form.imsi);
+      console.log("time zone = ",form.timeZone);
+      console.log("start date = ",formatDateToString(form.start_time));
+      console.log("end date = "+formatDateToString(form.end_time));
+      console.log("msisdn = ",form.msisdn);
+      console.log("imsi = ",form.imsi);
 
        // Validation for required fields
     if (!form.testCaseId) {
@@ -101,7 +104,7 @@ const UploadModal = ({ onClose, addCallFailureData, setApiCalled, setFormData, s
   const handleFile = (e) => setFile(e.target.files[0]);
 
   const handleChange = (e) => {
-    //console.log(form.timeZone);
+    console.log(form.timeZone);
     setForm((prev) => ({
       ...prev,
       [e.target.name]: e.target.value,
@@ -109,7 +112,7 @@ const UploadModal = ({ onClose, addCallFailureData, setApiCalled, setFormData, s
   };
 
   useEffect( () => {
-    //console.log("Selected time zone", selectedZone);
+    console.log("Selected time zone", selectedZone);
   },[selectedZone])
 
   const handleDragOver = (e) => {
@@ -132,6 +135,107 @@ const UploadModal = ({ onClose, addCallFailureData, setApiCalled, setFormData, s
     }
     e.dataTransfer.clearData();
   };
+
+  const timezoneStyle = {
+    control : ( base, state) => (
+      {
+        ...base,
+        minHeight: "32px",            
+        height: "32px",
+        fontSize: "12px",            
+        borderRadius: "4px",         
+        borderWidth: "1px",
+        borderColor: state.isFocused ? "#1e40af" : "#d1d5db",
+        boxShadow: state.isFocused ? "0 0 0 1px rgba(30,64,175,0.12)" : "none",
+        padding: 0,
+        display: "flex",
+        alignItems: "center",
+        outline: "none",
+      }
+    ),
+
+    valueContainer: (base) => (
+      {
+        ...base,
+        padding: "0 8px",
+        height: "32px",
+        display: "flex",
+        alignItems: "center",
+      }
+    ),
+
+    input: (base) => (
+      {
+        ...base,
+        margin: 0,
+        padding: 0,
+        color: "#111827",
+      }
+    ),
+
+    singleValue: (base) => (
+      {
+        ...base,
+        lineHeight: "32px",
+        margin: 0,
+      }
+    ),
+
+    placeholder: (base) => (
+      {
+
+        ...base,
+        margin: 0,
+        lineHeight: "32px",
+        color: "#9ca3af",
+        fontSize: "12px",
+      }
+    ),
+
+    dropdownIndicator: (base) => (
+      {
+        ...base,
+        padding: "4px",
+        display: "flex",
+        alignItems: "center",
+      }
+    ),
+
+    indicatorSeparator: () => (
+      {
+        display: "none"
+      }
+    ),
+
+    option: (base, state) => (
+      {
+        ...base,
+        fontSize: "12px",
+        padding: "8px 12px",
+        backgroundColor: state.isSelected ? "#1e40af" : state.isFocused ? "#eef2ff" : "white",
+        color: state.isSelected ? "white" : "#111827",
+        cursor: "pointer"
+      }
+    ),
+
+    menu: (base) => (
+      {
+        ...base,
+        borderRadius: "6px",
+        overflow: "hidden",
+        boxShadow: "hidden",
+        boxShadow: "0 6px 18px rgba(15,23,42,0.12)",
+      }
+    ),
+
+    menuPortal: (base) => (
+      {
+        ...base,
+        zIndex: 9999
+      }
+    )
+  };
+
 
   return (
     <div className="fixed inset-0 z-50 bg-gray-800/40 flex justify-center items-center p-2">
@@ -215,7 +319,7 @@ const UploadModal = ({ onClose, addCallFailureData, setApiCalled, setFormData, s
               </label>
               <input
                 name="testCaseId"
-                className="w-full p-1.5 border border-gray-300 rounded text-xs"
+                className="w-full p-1.5 border border-gray-300 rounded text-xs focus:border-blue-800 focus:outline-none focus:ring-1 focus:ring-blue-800/12"
                 onChange={handleChange}
               />
             </div>
@@ -226,9 +330,10 @@ const UploadModal = ({ onClose, addCallFailureData, setApiCalled, setFormData, s
               </label>
               <input
                 name="uploaded_by"
-                className="w-full p-1.5 border border-gray-300 rounded text-xs"
+                className="w-full p-1.5 border border-gray-300 rounded text-xs focus:border-blue-800 focus:outline-none focus:ring-1 focus:ring-blue-800/12"
                 onChange={handleChange}
               />
+
             </div>
 
             {/* Optional MSISDN */}
@@ -239,7 +344,7 @@ const UploadModal = ({ onClose, addCallFailureData, setApiCalled, setFormData, s
               <input
                 name="msisdn"
                 type="text"
-                className="w-full p-1.5 border border-gray-300 rounded text-xs"
+                className="w-full p-1.5 border border-gray-300 rounded text-xs focus:border-blue-800 focus:outline-none focus:ring-1 focus:ring-blue-800/12"
                 onChange={handleChange}
               />
             </div>
@@ -252,7 +357,7 @@ const UploadModal = ({ onClose, addCallFailureData, setApiCalled, setFormData, s
               <input
                 name="imsi"
                 type="text"
-                className="w-full p-1.5 border border-gray-300 rounded text-xs"
+                className="w-full p-1.5 border border-gray-300 rounded text-xs focus:border-blue-800 focus:outline-none focus:ring-1 focus:ring-blue-800/12"
                 onChange={handleChange}
               />
             </div>
@@ -261,21 +366,25 @@ const UploadModal = ({ onClose, addCallFailureData, setApiCalled, setFormData, s
               <label className="block text-xs text-gray-600 mb-0.5">
                 Timezone <span className="text-gray-400 text-[11px]">(optional)</span>
               </label>
-              <select
-                name="timeZone"
-                value={selectedZone}
-                onChange={(e) => {
-                  setSelectedZone(e.target.value);
-                  handleChange(e);
+
+              <Select
+                className="w-full"
+                classNamePrefix="react-select"
+                options={timeZones.map((tz) => ({ label: tz, value: tz }))}
+                value={selectedZone ? { label: selectedZone, value: selectedZone } : null}
+                onChange={(selectedOption) => {
+                  
+                  const fakeEvent = { target: { name: "timezone", value: selectedOption?.value || "" } };
+
+                  handleChange(fakeEvent);
+                  setSelectedZone(selectedOption?.value || "");
                 }}
-                className="w-full p-1.5 border border-gray-300 rounded text-xs"
-              >
-                {timeZones.map((tz) => (
-                  <option key={tz} value={tz}>
-                    {tz}
-                  </option>
-                ))}
-              </select>
+                placeholder="Select Time Zone"
+                isSearchable={true}
+                menuPortalTarget={typeof document !== "undefined" ? document.body : null}
+                menuPosition="fixed"
+                styles={timezoneStyle}
+              />
             </div>
 
             <div>
@@ -285,7 +394,7 @@ const UploadModal = ({ onClose, addCallFailureData, setApiCalled, setFormData, s
               <textarea
                 name="comments"
                 onChange={handleChange}
-                className="w-full p-1.5 border border-gray-300 rounded text-xs h-[32px]"
+                className="w-full p-1.5 border border-gray-300 rounded text-xs h-[32px] focus:border-blue-800 focus:outline-none focus:ring-1 focus:ring-blue-800/12"
               />
             </div>
 
@@ -298,7 +407,7 @@ const UploadModal = ({ onClose, addCallFailureData, setApiCalled, setFormData, s
                 name="start_time"
                 step={1}
                 onChange={handleChange}
-                className="w-full p-1.5 border border-gray-300 rounded text-xs"
+                className="w-full p-1.5 border border-gray-300 rounded text-xs focus:border-blue-800 focus:outline-none focus:ring-1 focus:ring-blue-800/12"
               />
             </div>
 
@@ -311,7 +420,7 @@ const UploadModal = ({ onClose, addCallFailureData, setApiCalled, setFormData, s
                 name="end_time"
                 step={1}
                 onChange={handleChange}
-                className="w-full p-1.5 border border-gray-300 rounded text-xs"
+                className="w-full p-1.5 border border-gray-300 rounded text-xs focus:border-blue-800 focus:outline-none focus:ring-1 focus:ring-blue-800/12"
               />
             </div>
           </div>
