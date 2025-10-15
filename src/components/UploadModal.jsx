@@ -19,15 +19,37 @@ const UploadModal = ({ onClose, addCallFailureData, setApiCalled, setFormData, s
     uploaded_by: "",
     comments: "",
     timeZone: selectedZone,
-    startDate: "",
-    endDate: "",
+    start_time: "",
+    end_time: "",
     msisdn: "",
     imsi: "",
   });
 
+
+  const formatDateToString = (date) => {
+
+    const d = new Date(date);
+
+    const year = d.getFullYear();
+    const month = String(d.getMonth()+1).padStart(2,'0');
+    const day = String(d.getDate()).padStart(2,'0');
+    const hours = String(d.getHours()).padStart(2,'0');
+    const miniutes = String(d.getMinutes()).padStart(2,'0');
+    const seconds = String(d.getSeconds()).padStart(2,'0');
+
+    return `${year}-${month}-${day} ${hours}:${miniutes}:${seconds}`;
+
+  }
+
   const handleUpload = async () => {
 
     try {
+
+      //console.log("time zone = ",form.timeZone);
+      //console.log("start date = ",formatDateToString(form.start_time));
+      //console.log("end date = "+formatDateToString(form.end_time));
+      //console.log("msisdn = ",form.msisdn);
+      //console.log("imsi = ",form.imsi);
 
        // Validation for required fields
     if (!form.testCaseId) {
@@ -46,22 +68,18 @@ const UploadModal = ({ onClose, addCallFailureData, setApiCalled, setFormData, s
       toast.warn("Please upload a PCAP file before submitting");
       return;
     }
-    
-      if (!file) {
-        toast.warn("Please upload a PCAP file before submitting");
-        return;
-      }
 
       const formDataToSend = new FormData();
       formDataToSend.append("testCaseId", form.testCaseId);
       formDataToSend.append("uploaded_by", form.uploaded_by);
       formDataToSend.append("comments", form.comments);
       formDataToSend.append("file", file);
-    //   formDataToSend.append("timeZone", form.timeZone);
-    //   formDataToSend.append("startDate", form.startDate);
-    //   formDataToSend.append("endDate", form.endDate);
-    //   formDataToSend.append("msisdn", form.msisdn);
-    //   formDataToSend.append("imsi", form.imsi);
+
+      if(form.timeZone) formDataToSend.append("timeZone", form.timeZone);
+      if (form.start_time) formDataToSend.append("start_time", formatDateToString(form.start_time)); 
+      if (form.end_time) formDataToSend.append("end_time", formatDateToString(form.end_time));
+      if (form.imsi) formDataToSend.append("imsi", form.imsi);
+      if (form.msisdn) formDataToSend.append("msisdn", form.msisdn);
 
       const response = await api.post("/upload_pcap", formDataToSend, {
         headers: { "Content-Type": "multipart/form-data" },
@@ -83,7 +101,7 @@ const UploadModal = ({ onClose, addCallFailureData, setApiCalled, setFormData, s
   const handleFile = (e) => setFile(e.target.files[0]);
 
   const handleChange = (e) => {
-    console.log(form.timeZone);
+    //console.log(form.timeZone);
     setForm((prev) => ({
       ...prev,
       [e.target.name]: e.target.value,
@@ -91,7 +109,7 @@ const UploadModal = ({ onClose, addCallFailureData, setApiCalled, setFormData, s
   };
 
   useEffect( () => {
-    console.log("Selected time zone", selectedZone);
+    //console.log("Selected time zone", selectedZone);
   },[selectedZone])
 
   const handleDragOver = (e) => {
@@ -193,7 +211,7 @@ const UploadModal = ({ onClose, addCallFailureData, setApiCalled, setFormData, s
           <div className="grid grid-cols-2 gap-2">
             <div>
               <label className="block text-xs text-gray-600 mb-0.5">
-                Testcase ID
+                Testcase ID<span className="text-red-600 text-[11px]"> *</span>
               </label>
               <input
                 name="testCaseId"
@@ -204,7 +222,7 @@ const UploadModal = ({ onClose, addCallFailureData, setApiCalled, setFormData, s
 
             <div>
               <label className="block text-xs text-gray-600 mb-0.5">
-                Uploaded By
+                Uploaded By<span className="text-red-600 text-[11px]"> *</span>
               </label>
               <input
                 name="uploaded_by"
@@ -220,6 +238,7 @@ const UploadModal = ({ onClose, addCallFailureData, setApiCalled, setFormData, s
               </label>
               <input
                 name="msisdn"
+                type="text"
                 className="w-full p-1.5 border border-gray-300 rounded text-xs"
                 onChange={handleChange}
               />
@@ -232,6 +251,7 @@ const UploadModal = ({ onClose, addCallFailureData, setApiCalled, setFormData, s
               </label>
               <input
                 name="imsi"
+                type="text"
                 className="w-full p-1.5 border border-gray-300 rounded text-xs"
                 onChange={handleChange}
               />
@@ -239,7 +259,7 @@ const UploadModal = ({ onClose, addCallFailureData, setApiCalled, setFormData, s
 
             <div>
               <label className="block text-xs text-gray-600 mb-0.5">
-                Timezone
+                Timezone <span className="text-gray-400 text-[11px]">(optional)</span>
               </label>
               <select
                 name="timeZone"
@@ -260,7 +280,7 @@ const UploadModal = ({ onClose, addCallFailureData, setApiCalled, setFormData, s
 
             <div>
               <label className="block text-xs text-gray-600 mb-0.5">
-                Comments
+                Comments <span className="text-red-600 text-[11px]"> *</span>
               </label>
               <textarea
                 name="comments"
@@ -271,11 +291,11 @@ const UploadModal = ({ onClose, addCallFailureData, setApiCalled, setFormData, s
 
             <div>
               <label className="block text-xs text-gray-600 mb-0.5">
-                Start Date & Time
+                Start Date & Time <span className="text-gray-400 text-[11px]">(optional)</span>
               </label>
               <input
                 type="datetime-local"
-                name="startDate"
+                name="start_time"
                 step={1}
                 onChange={handleChange}
                 className="w-full p-1.5 border border-gray-300 rounded text-xs"
@@ -284,11 +304,11 @@ const UploadModal = ({ onClose, addCallFailureData, setApiCalled, setFormData, s
 
             <div>
               <label className="block text-xs text-gray-600 mb-0.5">
-                End Date & Time
+                End Date & Time <span className="text-gray-400 text-[11px]">(optional)</span>
               </label>
               <input
                 type="datetime-local"
-                name="endDate"
+                name="end_time"
                 step={1}
                 onChange={handleChange}
                 className="w-full p-1.5 border border-gray-300 rounded text-xs"
