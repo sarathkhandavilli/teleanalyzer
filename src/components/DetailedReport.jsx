@@ -65,7 +65,7 @@ const DetailedReport = ({ testCaseId, onClose, onOpenNodeScore, onOpenProtocolMi
 
         {/* Summary Info */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-4 text-sm">
-          <div>
+          <div className="ml-2">
             <p className="text-gray-500">Call Status</p>
             <p className="font-semibold text-gray-800 capitalize">{call?.call_status || "N/A"}</p>
           </div>
@@ -77,10 +77,7 @@ const DetailedReport = ({ testCaseId, onClose, onOpenNodeScore, onOpenProtocolMi
             <p className="text-gray-500">Total Nodes</p>
             <p className="font-semibold text-gray-800">{nodes.length}</p>
           </div>
-          <div>
-            <p className="text-gray-500">Failure Level</p>
-            <p className="font-semibold  text-gray-800">{call?.call_status === 'success' ? '-' : call?.failure_level}</p>
-          </div>
+
         </div>
 
         {/* Node Details */}
