@@ -359,7 +359,7 @@ const CallFailureDetection = ({
                           <img
                             src={Dropdown}
                             alt="expand"
-                            className={`w-3 transition-all duration-300 ease-in-out ${expandedIndex === index ? "-rotate-90" : ""}`}
+                            className={`w-3 transition-all duration-300 -rotate-90 ease-in-out ${expandedIndex === index ? "rotate-0" : ""}`}
                           />
                         </button>
 

@@ -1,7 +1,0 @@
-[build]
-  command = "npm run build"
-  publish = "dist"
-
-[context.production.environment]
-# Example environment variables you might need (uncomment and set values in Netlify UI instead of committing secrets)
-# REACT_APP_API_URL = "https://api.example.com"

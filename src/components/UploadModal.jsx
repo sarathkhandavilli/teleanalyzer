@@ -3,8 +3,6 @@ import CloudUpload from "../assets/cloudupload.png";
 import UploadImage from "../assets/uploadwhite.png";
 import { toast } from "react-toastify";
 import api from "../api";
-import AsyncSelect from "react-select/async";
-import { callback, color } from "chart.js/helpers";
 import Select from "react-select";
 
 const UploadModal = ({ onClose, addCallFailureData, setApiCalled, setFormData, setTestCaseId }) => {
